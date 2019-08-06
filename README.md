@@ -1,6 +1,9 @@
 Final Project –Bullhorn plus
 
+A working version of the app :https://finalprojectbullhornplus.herokuapp.com
+
 I wrote an application that is kind of like Twitter. It will allow a user to post a message, and everyone else to see all the messages that have been posted.
+
 Features/Functionalities:
 
 •	The index page shall display a list of all messages
