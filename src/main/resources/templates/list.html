@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="index :: importLink"></th:block>
+
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+<div class="jumbotron" style="background-image: url(https://res.cloudinary.com/de6d1rruj/image/upload/c_scale,h_100,w_100/v1565081492/An-Introverts-Guide-To-Networking_fjtgum.jpg);background-size: 100%;">
+    <h1 class="display-4">Welcome to Bullhorn</h1>
+    <p class="lead">Get the most out of Bullhorn.</p>
+    <hr class="my-4">
+
+    <th:block th:replace="index :: importNavBar"></th:block>
+
+    <div class="w3-main" style="margin-left:300px">
+
+        <th:block th:replace="index :: importHeader"></th:block>
+
+        <div class="card" style="width: 85rem;" th:each="var:${messages}">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${var.title}"></h5>
+                <h6 class="card-subtitle mb-2 text-muted" th:text="${var.sentby}"></h6>
+                <!--<div class="jumbotron">-->
+                <th:block th:if="${var.headshot != null}">
+                    <img class="card-img-top" th:src="${var.headshot}"
+                         style="width: 1000px; height: 500px; background-color: rgba(0,0,255,0.1); position: center">
+                </th:block>
+
+                <p class="card-text" th:text="${var.content}"></p>
+
+                <p>
+                    <small th:text="${var.date}"></small>
+                </p>
+
+                <a class="btn btn-outline-primary"
+                   th:href="@{/update/{id} (id=${var.id})}">Update Message</a>
+
+                <a class="btn btn-outline-primary"
+                   th:href="@{/update/pic/{id} (id=${var.id})}">Update Message Picture</a>
+                <a class="btn btn-outline-primary" th:href="@{/detail/{id} (id=${var.id})}">Details</a>
+
+
+                <a class="btn btn-outline-primary"
+                   th:href="@{/delete/{id} (id=${var.id})}">Delete</a>
+
+            </div>
+        </div>
+        <hr>
+
+    </div>
+
+
+    <hr>
+    <br>
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+            class="fa fa-bars"></i></span>
+    <th:block th:replace="index::importJS"></th:block>
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="index :: importLink"></th:block>
+
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+     title="close side menu" id="myOverlay"></div>
+
+
+<div class="w3-main" style="margin-left:300px">
+
+    <!-- Header -->
+    <th:block th:replace="index :: importHeader"></th:block>
+    <!--End Header-->
+
+    <!-- Content -->
+    <div class="container">
+        <div class="jumbutron">
+            <form method="POST"
+                  action="/add"
+                  th:object="${message}"
+                  enctype="multipart/form-data"
+            >
+
+                <input type="hidden" th:field="*{id}"/>
+
+                Title :<input type="text" th:field="*{title}"/>
+                <span th:if="${#fields.hasErrors('title')}"
+                      th:errors="*{title}"></span> <br/>
+
+                Content :<textarea rows="3" id="myTextArea" th:field="*{content}"/>
+                <span th:if="${#fields.hasErrors('content')}"
+                      th:errors="*{content}"></span> <br/>
+
+                Sent By :<input type="text" th:field="*{sentby}"/>
+                <span th:if="${#fields.hasErrors('sentby')}"
+                      th:errors="*{sentby}"></span> <br/>
+
+                Posted Date :<input type="date" th:field="*{date}"/>
+                <span th:if="${#fields.hasErrors('date')}"
+                      th:errors="*{date}"></span> <br/>
+
+
+                <input type="submit" value="Submit"/>
+
+            </form>
+
+        </div>
+    </div>
+    <hr>
+
+    <div th:replace="index :: importJS"></div>
+</div>
+</body>
+</html>

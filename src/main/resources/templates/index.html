@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<th:block th:fragment="importLink">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bullhorn</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Raleway", sans-serif
+        }
+    </style>
+</th:block>
+
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<div class="jumbotron" style="background-image: url(https://res.cloudinary.com/de6d1rruj/image/upload/c_scale,h_100,w_100/v1565081492/An-Introverts-Guide-To-Networking_fjtgum.jpg);background-size: 100%;">
+    <h1 class="display-4">Welcome to Bullhorn</h1>
+    <p class="lead">Get the most out of Bullhorn.</p>
+    <hr class="my-4">
+    <!-- Sidebar/menu -->
+    <th:block th:fragment="importNavBar">
+        <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+            <div class="w3-container">
+                <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
+                   title="close menu">
+                    <i class="fa fa-remove"></i>
+                </a>
+                <img src="https://res.cloudinary.com/de6d1rruj/image/upload/c_scale,w_267/v1565035311/bullhorn-icon-line-style-icon-design-ui-vector-21249292_o20bxg.jpg"
+                     style="width:45%;" class="w3-round"><br><br>
+                <h4><b>Bullhorn</b></h4>
+
+            </div>
+            <div class="w3-bar-block">
+                <a href="/login" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i
+                        class="fa fa-th-large fa-fw w3-margin-right"></i>Login</a>
+
+                <a href="/home" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
+                        class="fa fa-user fa-fw w3-margin-right"></i> Hello <span
+                        th:text="${#authentication.name}"></span></a>
+                <a href="/register" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
+                        class="fa fa-envelope fa-fw w3-margin-right"></i>REGISTER</a>
+
+            </div>
+        </nav>
+
+        <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+             title="close side menu" id="myOverlay"></div>
+
+    </th:block>
+
+    <div class="w3-main" style="margin-left:300px">
+
+        <!-- Header -->
+        <th:block th:fragment="importHeader">
+            <header id="Pictures Bullhorn">
+                <a href="#"><img
+                        src="https://res.cloudinary.com/dzk3cvgwt/image/upload/v1564413116/Anonymous-2-512_wxqovf.png"
+                        style="width:65px;"
+                        class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+                <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+                        class="fa fa-bars"></i></span>
+
+                <div class="w3-container">
+                    <h1><b><a href="/">Welcome to Bullhorn</a></b></h1>
+                    <h2><b><a href="/">Get the most out of it</a></b></h2>
+
+                    <nav class="w3-section w3-bottombar w3-padding-16">
+                        <a class="w3-button w3-black" sec:authorize="hasAuthority('ADMIN')" href="/adminhome">
+                            List View For Admin</a>
+                        <a class="w3-button w3-black" sec:authorize="hasAuthority('ADMIN')" href="/home">
+                            Edited Post</a>
+                        <a class="w3-button w3-black" href="/addnew" sec:authorize="isAuthenticated()">Add a Message</a>
+                        <a class="w3-button w3-black" href="/logout" sec:authorize="isAuthenticated()">Logout</a>
+
+
+                        <span class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" sec:authorize="isAuthenticated()" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             Welcome
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/myprofile">My profile</a>
+
+
+                        </div>
+                    </span>
+
+                    </nav>
+                </div>
+            </header>
+        </th:block>
+
+        <div class="card" style="width: 85rem;" th:each="var:${messages}">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${var.title}"></h5>
+                <h6 class="card-subtitle mb-2 text-muted" th:text="${var.sentby}"></h6>
+                <!--<div class="jumbotron">-->
+                <th:block th:if="${var.headshot != null}">
+                    <img class="card-img-top" th:src="${var.headshot}"
+                         style="width: 1000px; height: 500px; background-color: rgba(0,0,255,0.1); position: center">
+                </th:block>
+
+                <p class="card-text" th:text="${var.content}"></p>
+
+                <p>
+                    <small th:text="${var.date}"></small>
+                </p>
+
+                <a class="btn btn-outline-primary" th:href="@{/detail/{id} (id=${var.id})}">Details</a>
+
+
+            </div>
+        </div>
+        <hr>
+
+    </div>
+
+    <hr>
+    <br>
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+            class="fa fa-bars"></i></span>
+    <!--END CONTENT-->
+    <th:block th:fragment="importJS">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+                integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+                integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+                crossorigin="anonymous"></script>
+    </th:block>
+</div>
+</body>

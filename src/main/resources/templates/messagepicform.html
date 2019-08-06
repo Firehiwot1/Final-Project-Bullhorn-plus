@@ -1,0 +1,44 @@
+!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="index :: importLink"></th:block>
+
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+     title="close side menu" id="myOverlay"></div>
+
+<div class="w3-main" style="margin-left:300px">
+
+    <!-- Header -->
+    <th:block th:replace="index :: importHeader"></th:block>
+    <!--End Header-->
+
+    <div class="container">
+        <div class="jumbutron">
+            <form method="POST"
+                  action="/addpic"
+                  th:object="${message}"
+                  enctype="multipart/form-data"
+            >
+
+                <input type="hidden" th:field="*{id}"/>
+                Title : <p th:inline="text"> [[*{title}]]</p>
+                Cotent : <p th:inline="text"> [[*{content}]]</p>
+                Sent By : <p th:inline="text"> [[*{sentby}]]</p>
+                Posted Date : <p th:inline="text"> [[*{date}]]</p>
+
+
+                <input type="file" name="file"/> <br/> <br/>
+                <input type="submit" value="Submit"/>
+
+            </form>
+
+        </div>
+    </div>
+    <hr>
+
+    <div th:replace="index :: importJS"></div>
+</div>
+</body>
+</html>

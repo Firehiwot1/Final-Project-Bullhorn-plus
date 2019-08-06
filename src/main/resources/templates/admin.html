@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="base::header">
+
+    <title>admin</title>
+</head>
+
+<body>
+<div th:replace="base::nav"></div>
+
+<div class="container text-center">
+    <div class="container" style="background-color: white">
+
+        <div class="jumbotron" style="background-image: url(https://res.cloudinary.com/de6d1rruj/image/upload/c_scale,h_200,w_200/v1563479009/socialnetworkbuddypress_xlmxk1.png);background-size: 100%;">
+            <h1 class="display-4">Welcome to Bullhorn</h1>
+            <p class="lead">Get the most out of Bullhorn.</p>
+            <hr class="my-4">
+            <h2>Admin</h2>
+        </div>
+        <table class="table table-striped" style="width:100%">
+            <thead>
+            <tr>
+                <th>User</th>
+                <th>Picture</th>
+                <th>User Name</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tr th:each="user :${users}">
+                <td>
+                    <strong>
+                        <a th:href="@{/user/{id}(id=${user.id})}"
+                           th:text="${user.firstName} + ' ' + ${user.lastName}"></a>
+                    </strong>
+                </td>
+                <td><img id="gravatar"
+                         th:alt="gravatar"
+                         th:src="@{'http://gravatar.com/avatar/' + ${mD5Util.md5Hex(user.email)} + '?s=40'}">
+                </td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div th:replace="base::footer"></div>
+</div>
+</body>
+</html>

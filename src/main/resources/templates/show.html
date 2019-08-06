@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="index :: importLink"></th:block>
+
+
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+<!-- Sidebar/menu -->
+<th:block th:replace="index :: importNavBar"></th:block>
+<div class="w3-main" style="margin-left:300px">
+    <!-- Header -->
+    <th:block th:replace="index :: importHeader"></th:block>
+    <!--End Header-->
+
+
+    <div class="container">
+        <th:block th:if="${message.sentby != null}">
+            <div id="list-example" class="list-group">
+                <h3 class="list-group-item list-group-item-action" href="#list-item-1">Author: <span
+                        th:text=" ${message.sentby}"></span></h3>
+            </div>
+        </th:block>
+        <th:block th:if="${message.sentby == null}">
+            <div id="list-example" class="list-group">
+                <h3 class="list-group-item list-group-item-action" href="#list-item-1">Anonymous <span
+                        th:text=" ${message.sentby}"></span></h3>
+            </div>
+        </th:block>
+
+        <div data-spy="scroll" data-target="#list-example" data-offset="0">
+            <h4 id="list-item-1">Title</h4>
+            <span th:text="${message.title}"></span>
+            <h4 id="list-item-2">Content</h4>
+            <span th:text="${message.content}"></span>
+            <p>Posted Date: <span th:text="${message.date}"></span></p>
+
+            <br>
+            <th:block th:if="${message.headshot != null}">
+                <img class="card-img-top" th:src="${message.headshot}"
+                     style="width: 1108px; height: 600px; background-color: rgba(0,0,255,0.1);">
+                <hr>
+                <br>
+            </th:block>
+
+        </div>
+
+    </div>
+
+    <hr>
+    <div th:replace="index :: importJS"></div>
+</div>
+</body>
+</html>
